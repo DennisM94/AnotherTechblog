@@ -1,4 +1,23 @@
 ﻿@page
+@model AnotherTechblog.Models.Encryption
+@{
+    /*
+    bool IsPost = true;
+
+    if (IsPost)
+    {
+        string Input = Request.Form["EncryptionMessage"];
+        string Type = Request.Form["EncryptionType"];
+
+        <text>
+                  You entered: <br />
+                  Company Name: @Input <br />
+                  Contact Name: @Type <br />
+        </text>
+    
+    }
+    */
+}
 
 <!DOCTYPE html>
 <html>
@@ -72,12 +91,24 @@
 </head>
 
 <body class=".body">
-    <div class="g1">
-        <h1 class=".h1">Encryptopia</h1>
-        <p>All Encription Algorithms that i know are here.</p>
-    </div>
-    <div>
+    
+    <form method="post" >
+        <fieldset>
+            <div class="g1">
+                <h1 class=".h1">Encryptopia</h1>
+                <p>All Encription Algorithms that i know are here.</p>
+            </div>
 
-    </div>
+            <div>
+                <label for="EncryptionMessage">Message to Encrypt:</label>
+                <input type="text" name="EncryptionMessage" value="" />
+            </div>
+
+            <div>
+                <label for="EncryptionType">Encryption Type:</label>
+                <input type="text" name="EncryptionType" value="" />
+            </div>
+        </fieldset>
+    </form>
 </body>
 </html>
