@@ -18,6 +18,11 @@ namespace AnotherTechblog.Controllers
             return View();
         }
 
+        public IActionResult CurveSample()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
