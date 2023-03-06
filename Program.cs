@@ -1,10 +1,16 @@
+using AnotherTechblog.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
+/*
+builder.Services.AddDbContext<AnotherTechblogDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AnotherTechblogDbContext") ?? throw new InvalidOperationException("Connection string 'AnotherTechblogDbContext' not found.")));
+*/
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
