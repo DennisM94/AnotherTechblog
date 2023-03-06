@@ -2,8 +2,15 @@
 
 namespace AnotherTechblog.Models
 {
-    public class BlogPost
+    public class BlogPost : IIdentifier
     {
+        public BlogPost()
+        {
+            this.Id = Guid.NewGuid();
+            this.Created= DateTime.Now;
+            this.Updated = DateTime.MinValue;
+        }
+
         [Key]
         public Guid Id { get; set; }
         public DateTime Created { get; set; }
