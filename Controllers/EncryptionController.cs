@@ -11,10 +11,10 @@ namespace AnotherTechblog.Controllers
         private readonly ILogger<EncryptionController> _logger;
         private string _encryptionKey;
         private string input;
-        private readonly AnotherTechblogDbContext _context;
+        private readonly AnotherTechblogDbContext _context; 
 
 
-        public EncryptionController(ILogger<EncryptionController> logger)
+        public EncryptionController(ILogger<EncryptionController> logger, AnotherTechblogDbContext context)
         {
             _context = context;
             _logger = logger;
@@ -29,28 +29,6 @@ namespace AnotherTechblog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        public IActionResult OnGet()
-        {
-            return View();
-        }
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null )
-            {
-                return NotFound();
-            }
-
-            var encrpytion = await _context.Encryption.FirstOrDefaultAsync(m => m.ID == id);
-            if (encrpytion == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Movie = encrpytion;
-            }
-            return Page();
         }
     }
 }
