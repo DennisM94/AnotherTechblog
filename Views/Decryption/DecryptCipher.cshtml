@@ -1,0 +1,34 @@
+﻿@model AnotherTechblog.Models.DecryptCipherViewModel
+
+<h1>Decrypt Cipher</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="algorithm">Algorithm:</label>
+        <select class="form-control" id="algorithm" name="Algorithm">
+            <option value="Caesar">Caesar Cipher</option>
+            <option value="Vigenere">Vigenere Cipher</option>
+            <option value="RailFence">Rail Fence Cipher</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cipher">Cipher Text:</label>
+        <input type="text" class="form-control" id="cipher" name="Cipher" value="@Model.Cipher">
+    </div>
+    <button type="submit" class="btn btn-primary">Decrypt</button>
+</form>
+
+@if (Model.DecryptedCipher != null)
+{
+    <hr />
+    <h2>Decrypted Text:</h2>
+    <p>@Model.DecryptedCipher</p>
+}
+@if (!string.IsNullOrEmpty(ViewBag.DecryptedCipher))
+{
+        <div class="form-group">
+            <label for="decryptedCipher">Decrypted Cipher:</label>
+            <textarea class="form-control" id="decryptedCipher" name="decryptedCipher" rows="5" readonly>@ViewBag.DecryptedCipher</textarea>
+        </div>
+}
+

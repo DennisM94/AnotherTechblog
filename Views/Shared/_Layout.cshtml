@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AnotherTechblog.styles.css" asp-append-version="true" />
+    <link href="~/css/layout.css" rel="stylesheet" type="text/css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/dropdown.js"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -22,12 +26,20 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CurveSample">Curve Sample</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Encryption">Encryptopia</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="cryptoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Crypto
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="cryptoDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Decryption" asp-action="DecryptCipher">Decrypt Cipher</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Encryption" asp-action="EncryptCipher">Encrypt Text</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -35,7 +47,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody()   
         </main>
     </div>
 

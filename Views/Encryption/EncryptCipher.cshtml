@@ -1,0 +1,30 @@
+﻿@model AnotherTechblog.Models.EncryptionCipherViewModel
+
+<h1>Encrypt Text</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="plainText">Plain Text:</label>
+        <input type="text" class="form-control" id="plainText" name="plainText" value="@Model.PlainText">
+    </div>
+    <div class="form-group">
+        <label for="algorithm">Algorithm:</label>
+        <select class="form-control" id="algorithm" name="algorithm">
+            <option value="caesar">Caesar Cipher</option>
+            <option value="vigenere">Vigenere Cipher</option>
+            <option value="railfence">Rail Fence Cipher</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cipherText">Encrypted Text:</label>
+        <input type="text" class="form-control" id="cipherText" name="cipherText" value="@Model.CipherText">
+    </div>
+    <button type="submit" class="btn btn-primary">Encrypt</button>
+</form>
+
+@if (Model.CipherText != null)
+{
+    <hr />
+    <h2>Encrypted Text:</h2>
+    <p>@Model.CipherText</p>
+}

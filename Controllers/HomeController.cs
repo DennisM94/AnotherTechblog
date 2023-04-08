@@ -1,14 +1,12 @@
 ﻿using AnotherTechblog.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using AnotherTechblog.Models;
 
 namespace AnotherTechblog.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private Encryption encryption;
 
         public HomeController(ILogger<HomeController> logger)
         {
