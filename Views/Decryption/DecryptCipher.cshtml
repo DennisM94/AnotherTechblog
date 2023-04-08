@@ -18,17 +18,9 @@
     <button type="submit" class="btn btn-primary">Decrypt</button>
 </form>
 
-@if (Model.DecryptedCipher != null)
+@if (Model.Cipher != null)
 {
     <hr />
     <h2>Decrypted Text:</h2>
     <p>@Model.DecryptedCipher</p>
 }
-@if (!string.IsNullOrEmpty(ViewBag.DecryptedCipher))
-{
-        <div class="form-group">
-            <label for="decryptedCipher">Decrypted Cipher:</label>
-            <textarea class="form-control" id="decryptedCipher" name="decryptedCipher" rows="5" readonly>@ViewBag.DecryptedCipher</textarea>
-        </div>
-}
-

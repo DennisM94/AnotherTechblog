@@ -13,18 +13,19 @@
             <option value="caesar">Caesar Cipher</option>
             <option value="vigenere">Vigenere Cipher</option>
             <option value="railfence">Rail Fence Cipher</option>
+            <option value="sha256">sha256 Cipher</option>
         </select>
     </div>
     <div class="form-group">
         <label for="cipherText">Encrypted Text:</label>
-        <input type="text" class="form-control" id="cipherText" name="cipherText" value="@Model.CipherText">
+        <input type="text" class="form-control" id="cipherText" name="cipherText" value="@Model.Cipher">
     </div>
     <button type="submit" class="btn btn-primary">Encrypt</button>
 </form>
 
-@if (Model.CipherText != null)
+@if (Model.Cipher != null)
 {
     <hr />
     <h2>Encrypted Text:</h2>
-    <p>@Model.CipherText</p>
+    <p>@Model.Cipher</p>
 }

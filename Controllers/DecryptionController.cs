@@ -12,42 +12,38 @@ namespace AnotherTechblog.Controllers
         // GET: /<controller>/
         public IActionResult DecryptCipher()
         {
-            var model = new DecryptCipherViewModel
-            {
-                Cipher = ""
-            };
+            var model = new DecryptCipherViewModel();
             ViewBag.Title = "Decrypt Cipher";
             return View(model);
         }
 
-        // GET: /<controller>/DecryptCaesar
-        public IActionResult DecryptCaesar(string cipher, int shift)
+        [HttpPost]
+        public IActionResult DecryptCipher(DecryptCipherViewModel model)
         {
-            string decryptedCipher = DecryptCaesarCipher(cipher, shift);
+            if (ModelState.IsValid)
+            {
+                switch (model.Algorithm)
+                {
+                    case "Caesar":
+                        model.DecryptedCipher = DecryptCaesarCipher(model.Cipher, 3);
+                        break;
 
-            ViewBag.DecryptedCipher = decryptedCipher;
+                    case "Vigenere":
+                        model.DecryptedCipher = DecryptVigenereCipher(model.Cipher, "KEY");
+                        break;
 
-            return View();
-        }
+                    case "RailFence":
+                        model.DecryptedCipher = DecryptRailFenceCipher(model.Cipher, 3);
+                        break;
 
-        // GET: /<controller>/DecryptVigenere
-        public IActionResult DecryptVigenere(string cipher, string key)
-        {
-            string decryptedCipher = DecryptVigenereCipher(cipher, key);
+                    default:
+                        break;
+                }
+            }
 
-            ViewBag.DecryptedCipher = decryptedCipher;
+            ViewBag.Title = "Decrypt Cipher";
 
-            return View();
-        }
-
-        // GET: /<controller>/DecryptRailFence
-        public IActionResult DecryptRailFence(string cipher, int rails)
-        {
-            string decryptedCipher = DecryptRailFenceCipher(cipher, rails);
-
-            ViewBag.DecryptedCipher = decryptedCipher;
-
-            return View();
+            return View(model);
         }
 
         private string DecryptCaesarCipher(string cipher, int shift)
@@ -58,7 +54,7 @@ namespace AnotherTechblog.Controllers
             {
                 if (char.IsLetter(c))
                 {
-                    char decryptedChar = (char)((((c - 65) + shift) % 26) + 65);
+                    char decryptedChar = (char)((((c - 65) - shift + 26) % 26) + 65);
                     decryptedCipher += decryptedChar;
                 }
                 else

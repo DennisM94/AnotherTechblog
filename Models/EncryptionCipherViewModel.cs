@@ -12,7 +12,7 @@ namespace AnotherTechblog.Models
             PlainText = "";
         }
         public string PlainText { get; set; }
-        public string CipherText { get; set; }
+        public string Cipher { get; set; }
         public string Algorithm { get; set; }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AnotherTechblog.Models;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AnotherTechblog.Controllers
 {
@@ -14,7 +16,7 @@ namespace AnotherTechblog.Controllers
         public EncryptionController()
         {
             _model.PlainText = "";
-            _model.CipherText = "";
+            _model.Cipher = "";
         }
         public IActionResult EncryptCipher()
         {
@@ -27,18 +29,24 @@ namespace AnotherTechblog.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Algorithm = Request.Form["algorithm"].ToString();
+
                 switch (model.Algorithm)
                 {
                     case "caesar":
-                        model.CipherText = EncryptCaesarCipher(model.PlainText, 3);
+                        model.Cipher = EncryptCaesarCipher(model.PlainText, 3);
                         break;
 
                     case "vigenere":
-                        model.CipherText = EncryptVigenereCipher(model.PlainText, "KEY");
+                        model.Cipher = EncryptVigenereCipher(model.PlainText, "KEY");
                         break;
 
                     case "railfence":
-                        model.CipherText = EncryptRailFenceCipher(model.PlainText, 3);
+                        model.Cipher = EncryptRailFenceCipher(model.PlainText, 3);
+                        break;
+
+                    case "sha256":
+                        model.Cipher = EncryptSha256Cipher(model.PlainText);
                         break;
 
                     default:
@@ -134,5 +142,21 @@ namespace AnotherTechblog.Controllers
 
             return cipherText;
         }
+
+        private string EncryptSha256Cipher(string plainText)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(plainText));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
     }
 }
