@@ -16,14 +16,10 @@
             <option value="sha256">sha256 Cipher</option>
         </select>
     </div>
-    <div class="form-group">
-        <label for="cipherText">Encrypted Text:</label>
-        <input type="text" class="form-control" id="cipherText" name="cipherText" value="@Model.Cipher">
-    </div>
     <button type="submit" class="btn btn-primary">Encrypt</button>
 </form>
 
-@if (Model.Cipher != null)
+@if (Model.PlainText != null)
 {
     <hr />
     <h2>Encrypted Text:</h2>
