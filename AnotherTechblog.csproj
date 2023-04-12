@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Styles\Index.css" />
+    <Compile Remove="Views\Blog\**" />
+    <Content Remove="Views\Blog\**" />
+    <EmbeddedResource Remove="Views\Blog\**" />
+    <None Remove="Views\Blog\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +31,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
     <PackageReference Include="Npgsql" Version="7.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Blog\" />
   </ItemGroup>
 
 </Project>

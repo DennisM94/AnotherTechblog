@@ -10,6 +10,5 @@ namespace AnotherTechblog.Data
         {
         }
 
-        public DbSet<Encryption> Encryption { get; set; } = default!;
     }
 }
