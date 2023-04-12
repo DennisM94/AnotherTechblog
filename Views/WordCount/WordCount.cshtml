@@ -1,0 +1,50 @@
+﻿@model AnotherTechblog.Models.WordCountViewModel
+
+<h1>@ViewBag.Title</h1>
+
+<p>Test p</p>
+
+@using (Html.BeginForm("CountWords", "WordCount", FormMethod.Post))
+{
+        <div class="form-group">
+        @Html.Label("Wikipedia Article URL")
+        @Html.TextBox("url", null, new { @class = "form-control" })
+        @Html.ValidationMessage("", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Count Words</button>
+}
+
+@if (Model.WordCounts != null)
+{
+        <h2>Top 15 Words</h2>
+
+        <canvas id="word-count-chart"></canvas>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+
+        <script>
+            var data = {
+                labels: @Html.Raw(Json.Serialize(Model.WordCounts.Keys.ToList())),
+                datasets: [{
+                    label: 'Word Count',
+                    data: @Html.Raw(Json.Serialize(Model.WordCounts.Values.ToList())),
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            var chart = new Chart('word-count-chart', {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        </script>
+}

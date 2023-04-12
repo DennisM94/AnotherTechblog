@@ -43,11 +43,14 @@ public class Startup
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoints.MapControllerRoute(
-                name: "decryption",
+                name: "features",
                 pattern: "{controller=Decryption}/{action=DecryptCipher}/{id?}");
             endpoints.MapControllerRoute(
-                name: "encryption",
+                name: "features",
                 pattern: "{controller=Encryption}/{action=EncryptCipher}");
+            endpoints.MapControllerRoute(
+                name: "features",
+                pattern: "{controller=WordCount}/{action=WordCount}");
         });
     }
 }
