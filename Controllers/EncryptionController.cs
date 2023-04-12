@@ -16,7 +16,6 @@ namespace AnotherTechblog.Controllers
         public EncryptionController()
         {
             _model.PlainText = "";
-            _model.Cipher = "";
         }
         public IActionResult EncryptCipher()
         {
@@ -27,31 +26,29 @@ namespace AnotherTechblog.Controllers
         [HttpPost]
         public IActionResult EncryptCipher(EncryptionCipherViewModel model)
         {
-            if (ModelState.IsValid)
+            model.Algorithm = Request.Form["algorithm"].ToString();
+
+            switch (model.Algorithm)
             {
-                model.Algorithm = Request.Form["algorithm"].ToString();
+                case "caesar":
+                    model.Cipher = EncryptCaesarCipher(model.PlainText, 3);
+                    break;
 
-                switch (model.Algorithm)
-                {
-                    case "caesar":
-                        model.Cipher = EncryptCaesarCipher(model.PlainText, 3);
-                        break;
+                case "vigenere":
+                    model.Cipher = EncryptVigenereCipher(model.PlainText, "KEY");
+                    break;
 
-                    case "vigenere":
-                        model.Cipher = EncryptVigenereCipher(model.PlainText, "KEY");
-                        break;
+                case "railfence":
+                    model.Cipher = EncryptRailFenceCipher(model.PlainText, 3);
+                    break;
 
-                    case "railfence":
-                        model.Cipher = EncryptRailFenceCipher(model.PlainText, 3);
-                        break;
+                case "sha256":
+                    model.Cipher = EncryptSha256Cipher(model.PlainText);
+                    break;
 
-                    case "sha256":
-                        model.Cipher = EncryptSha256Cipher(model.PlainText);
-                        break;
-
-                    default:
-                        break;
-                }
+                default:
+                    break;
+                
             }
 
             ViewBag.Title = "Encrypt Cipher";

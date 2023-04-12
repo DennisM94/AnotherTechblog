@@ -20,25 +20,22 @@ namespace AnotherTechblog.Controllers
         [HttpPost]
         public IActionResult DecryptCipher(DecryptCipherViewModel model)
         {
-            if (ModelState.IsValid)
+            switch (model.Algorithm)
             {
-                switch (model.Algorithm)
-                {
-                    case "Caesar":
-                        model.DecryptedCipher = DecryptCaesarCipher(model.Cipher, 3);
-                        break;
+                case "Caesar":
+                    model.DecryptedCipher = DecryptCaesarCipher(model.Cipher);
+                    break;
 
-                    case "Vigenere":
-                        model.DecryptedCipher = DecryptVigenereCipher(model.Cipher, "KEY");
-                        break;
+                case "Vigenere":
+                    model.DecryptedCipher = DecryptVigenereCipher(model.Cipher, "KEY");
+                    break;
 
-                    case "RailFence":
-                        model.DecryptedCipher = DecryptRailFenceCipher(model.Cipher, 3);
-                        break;
+                case "RailFence":
+                    model.DecryptedCipher = DecryptRailFenceCipher(model.Cipher, 3);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;  
             }
 
             ViewBag.Title = "Decrypt Cipher";
@@ -46,25 +43,34 @@ namespace AnotherTechblog.Controllers
             return View(model);
         }
 
-        private string DecryptCaesarCipher(string cipher, int shift)
+        private string DecryptCaesarCipher(string cipher)
         {
             string decryptedCipher = "";
 
-            foreach (char c in cipher)
+            for (int shift = 1; shift <= 25; shift++)
             {
-                if (char.IsLetter(c))
+                decryptedCipher += "<strong>Shift " + shift + ": </strong>";
+
+                foreach (char c in cipher)
                 {
-                    char decryptedChar = (char)((((c - 65) - shift + 26) % 26) + 65);
-                    decryptedCipher += decryptedChar;
+                    if (char.IsLetter(c))
+                    {
+                        char baseChar = char.IsUpper(c) ? 'A' : 'a';
+                        char decryptedChar = (char)((((c - baseChar) - shift + 26) % 26) + baseChar);
+                        decryptedCipher += decryptedChar;
+                    }
+                    else
+                    {
+                        decryptedCipher += c;
+                    }
                 }
-                else
-                {
-                    decryptedCipher += c;
-                }
+
+                decryptedCipher += "<br>";
             }
 
             return decryptedCipher;
         }
+
 
         private string DecryptVigenereCipher(string cipher, string key)
         {

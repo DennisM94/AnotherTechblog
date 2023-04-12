@@ -19,7 +19,7 @@
     <button type="submit" class="btn btn-primary">Encrypt</button>
 </form>
 
-@if (Model.PlainText != null)
+@if (!string.IsNullOrEmpty(Model.Cipher))
 {
     <hr />
     <h2>Encrypted Text:</h2>

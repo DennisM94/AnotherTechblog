@@ -109,8 +109,6 @@ section {
         fill: hsl(240, 3%, 6%);
     }
 
-/* SVG background image via https://haikei.app/ */
-
 .spacer {
     aspect-ratio: 960/300;
     width: 100%;
@@ -131,7 +129,6 @@ section {
     transform: rotate(180deg);
 }
 
-/* Blobs SVG background image via https://haikei.app/ */
 
 .blob-motion {
     position: absolute;
