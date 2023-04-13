@@ -20,16 +20,16 @@ namespace AnotherTechblog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CountWords(string url)
+        public async Task<IActionResult> CountWords(WordCountViewModel model)
         {
-            if (!url.StartsWith("https://en.wikipedia.org/wiki/"))
+            if (!model.ArticleUrl.StartsWith("https://en.wikipedia.org/wiki/"))
             {
                 ModelState.AddModelError("", "Invalid Wikipedia article URL.");
-                return View();
+                return View(model);
             }
 
             // Download the Wikipedia article content
-            var html = await _client.GetStringAsync(url);
+            var html = await _client.GetStringAsync(model.ArticleUrl);
 
             // Parse the HTML using HtmlAgilityPack
             var htmlDoc = new HtmlAgilityPack.HtmlDocument();
@@ -51,13 +51,6 @@ namespace AnotherTechblog.Controllers
 
             // Serialize the word count to JSON
             var wordCountJson = JsonConvert.SerializeObject(wordCount);
-
-            // Create the view model
-            var model = new WordCountViewModel
-            {
-                ArticleUrl = url,
-                WordCounts = wordCount
-            };
 
             return View(model);
         }
