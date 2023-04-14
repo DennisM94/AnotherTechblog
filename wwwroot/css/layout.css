@@ -17,6 +17,18 @@ body {
     margin-bottom: 60px;
 }
 
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-left: 10px;
+    position: relative;
+    padding: 10px;
+}
+
+
 /* Dropdown menu */
 .dropdown {
     position: absolute;
