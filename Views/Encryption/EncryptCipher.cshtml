@@ -10,10 +10,20 @@
     <div class="form-group">
         <label for="algorithm">Algorithm:</label>
         <select class="form-control" id="algorithm" name="algorithm">
-            <option value="caesar">Caesar Cipher</option>
-            <option value="vigenere">Vigenere Cipher</option>
-            <option value="railfence">Rail Fence Cipher</option>
-            <option value="sha256">sha256 Cipher</option>
+            @{
+                string[] options = { "caesar", "vigenere", "railfence", "sha256"}; 
+                foreach (var option in options)
+                {
+                    if (option == Model.Algorithm)
+                    {
+                        <option value="@option" selected="selected">@option</option>
+                    }
+                    else
+                    {
+                        <option value="@option">@option</option>
+                    }
+                }
+            }
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Encrypt</button>
