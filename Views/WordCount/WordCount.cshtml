@@ -1,0 +1,56 @@
+﻿@model AnotherTechblog.Models.WordCountViewModel
+
+<h1> Wikipedia Wordcounter</h1>
+
+
+@using (Html.BeginForm("WordCount", "WordCount", FormMethod.Post))
+{
+
+        <div class="form-group">
+
+        @Html.LabelFor(model => model.ArticleUrl, "Wikipedia Article URL")
+        @Html.TextBoxFor(model => model.ArticleUrl, new { @class = "form-control" })
+
+            <div class="form-check">
+                @Html.CheckBoxFor(model => model.RemoveCommonWords, new { @class = "form-check-input" })
+                @Html.LabelFor(model => model.RemoveCommonWords, "Remove common words", new { @class = "form-check-label" })
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Count Words</button>
+}
+
+@if (Model.WordCounts != null)
+{
+        <h2>Top 15 Words</h2>
+
+        <canvas id="word-count-chart"></canvas>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+
+        <script>
+            var data = {
+                labels: @Html.Raw(Json.Serialize(Model.WordCounts.Keys.ToList())),
+                datasets: [{
+                    label: 'Word Count',
+                    data: @Html.Raw(Json.Serialize(Model.WordCounts.Values.ToList())),
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            var chart = new Chart('word-count-chart', {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        </script>
+}

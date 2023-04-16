@@ -9,6 +9,10 @@ namespace AnotherTechblog.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configure the entity mappings here
+        }
 
     }
 }

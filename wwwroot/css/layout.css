@@ -1,4 +1,35 @@
-﻿/* Dropdown menu */
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+}
+
+
+/* Dropdown menu */
 .dropdown {
     position: absolute;
     display: grid;
@@ -14,9 +45,8 @@
     .dropdown-menu > li > a {
         text-align: center;
         width: 100px;
-        padding: 8px 20px;
+        padding: 80px 200px;
         display: block;
-        padding: 3px 20px;
         clear: both;
         font-weight: 400;
         line-height: 1.42857143;
