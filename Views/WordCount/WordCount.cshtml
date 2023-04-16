@@ -1,15 +1,21 @@
 ﻿@model AnotherTechblog.Models.WordCountViewModel
 
-<h1>@ViewBag.Title</h1>
+<h1> Wikipedia Wordcounter</h1>
 
-<p>ord Counts</p>
 
-@using (Html.BeginForm("CountWords", "WordCount", FormMethod.Post))
+@using (Html.BeginForm("WordCount", "WordCount", FormMethod.Post))
 {
+
         <div class="form-group">
-        @Html.Label("Wikipedia Article URL")
-        @Html.TextBox("url", null, new { @class = "form-control" })
-        @Html.ValidationMessage("", new { @class = "text-danger" })
+
+        @Html.LabelFor(model => model.ArticleUrl, "Wikipedia Article URL")
+        @Html.TextBoxFor(model => model.ArticleUrl, new { @class = "form-control" })
+
+            <div class="form-check">
+                @Html.CheckBoxFor(model => model.RemoveCommonWords, new { @class = "form-check-input" })
+                @Html.LabelFor(model => model.RemoveCommonWords, "Remove common words", new { @class = "form-check-label" })
+            </div>
+
         </div>
 
         <button type="submit" class="btn btn-primary">Count Words</button>

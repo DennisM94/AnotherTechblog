@@ -109,13 +109,11 @@ namespace AnotherTechblog.Controllers
 
             string cipherText = "";
 
-            // First row
             for (int i = 0; i < plainTextLength; i += fullCycleLength)
             {
                 cipherText += plainText[i];
             }
 
-            // Rows between first and last
             for (int r = 1; r < rails - 1; r++)
             {
                 for (int i = r; i < plainTextLength; i += fullCycleLength)
@@ -131,7 +129,6 @@ namespace AnotherTechblog.Controllers
                 }
             }
 
-            // Last row
             for (int i = rails - 1; i < plainTextLength; i += fullCycleLength)
             {
                 cipherText += plainText[i];
