@@ -22,17 +22,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CurveSample">Curve Sample</a>
                         </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Tools
                             </a>
+
                             <div class="dropdown-menu" aria-labelledby="toolsDropdown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Encryption" asp-action="EncryptCipher">Crypto > Encryption</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Decryption" asp-action="DecryptCipher">Crypto > Decryption</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="WordCount" asp-action="WordCount">WikiWordCounter</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="CurveSample">Curve Sample</a>
                             </div>
                         </li>
 
@@ -52,11 +58,18 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="position: fixed; bottom: 0; left: 0; right: 0;">
         <div class="container">
-            &copy; 2023 - AnotherTechblog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">
+                        &copy; 2023 - AnotherTechblog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

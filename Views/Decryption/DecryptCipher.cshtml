@@ -18,9 +18,6 @@
     <button type="submit" class="btn btn-primary">Decrypt</button>
 </form>
 
-@if (Model.Cipher != null)
-{
     <hr />
     <h2>Decrypted Text:</h2>
     <p>@Html.Raw(Model.DecryptedCipher)</p>
-}

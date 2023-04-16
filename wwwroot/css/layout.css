@@ -28,6 +28,12 @@ body {
     position: relative;
 }
 
+.nav-item dropdown{
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+}
+
 
 /* Dropdown menu */
 .dropdown {
