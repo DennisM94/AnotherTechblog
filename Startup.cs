@@ -12,6 +12,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+
         services.AddControllersWithViews();
 
         services.AddDbContext<AnotherTechblogDbContext>(options =>
@@ -50,7 +51,10 @@ public class Startup
                 pattern: "{controller=Encryption}/{action=EncryptCipher}");
             endpoints.MapControllerRoute(
                 name: "features",
-                pattern: "{controller=WordCount}/{action=WordCount}");
+                pattern: "{controller=WordCount}/{action=WordCount}"); 
+            endpoints.MapControllerRoute(
+                name: "features",
+                pattern: "{controller=Maze}/{action=AStarMazeSolver}");
         });
     }
 }

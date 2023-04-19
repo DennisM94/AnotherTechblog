@@ -17,6 +17,12 @@ body {
     margin-bottom: 60px;
 }
 
+footer {
+    background-color: #000;
+    opacity: 1;
+}
+
+
 .navbar-nav {
     display: flex;
     align-items: center;
@@ -33,6 +39,7 @@ body {
     margin-right: 10px;
     position: relative;
 }
+
 
 
 /* Dropdown menu */

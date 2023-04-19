@@ -1,0 +1,38 @@
+﻿@page
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> A* Maze Solver</title>
+    <link href="~/css/maze.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/dropdown.js"></script>
+</head>
+
+<h1>Maze</h1>
+
+<button onclick="setStartPoint()">Set Start Point</button>
+<button onclick="setEndPoint()">Set End Point</button>
+<button onclick="solveMaze()">Solve Maze</button>
+
+<div id="maze" style="display: grid; grid-template-columns: repeat(128, 8px); grid-template-rows: repeat(64, 8px);">
+    @for (int row = 0; row < 64; row++)
+    {
+        for (int col = 0; col < 128; col++)
+        {
+            <div id="@($"cell-{row}-{col}")" class="cell" style="width: 8px; height: 8px; border: 1px solid #ccc;" onclick="toggleCell(this)"></div>
+        }
+    }
+</div>
+
+@section Scripts
+    {
+    <script>
+        function toggleCell(cell) {
+            cell.classList.toggle("wall");
+        }
+    </script>
+}
