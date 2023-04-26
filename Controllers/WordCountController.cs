@@ -1,17 +1,24 @@
-﻿using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using AnotherTechblog.Data;
 using AnotherTechblog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
+using System.Text;
+using System.Web;
 
 namespace AnotherTechblog.Controllers
 {
     public class WordCountController : Controller
     {
         private readonly HttpClient _client = new HttpClient();
+        private readonly AnotherTechblogDbContext _context;
+
+        public WordCountController(AnotherTechblogDbContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _client = new HttpClient();
+        }
 
         public IActionResult WordCount()
         {
@@ -72,6 +79,18 @@ namespace AnotherTechblog.Controllers
             .Take(15)
             .ToDictionary(x => x.Key, x => x.Value);
 
+            // Save the top 15 words to the database
+            foreach (var wc in wordCount)
+            {
+                var topWords = new WordCountResult
+                {
+                    ArticleUrl = model.ArticleUrl,
+                    Word = wc.Key,
+                    Count = wc.Value
+                };
+                _context.WordCountResults.Add(topWords);
+            }
+            await _context.SaveChangesAsync();
             // Serialize word count to JSON
             var wordCountJson = JsonConvert.SerializeObject(wordCount);
 
@@ -79,6 +98,24 @@ namespace AnotherTechblog.Controllers
 
             return View(model);
         }
+
+        public async Task<string> GetRandomWikipediaArticleUrl()
+        {
+            var randomPageUrl = "https://en.wikipedia.org/wiki/Special:Random";
+            var request = new HttpRequestMessage(HttpMethod.Get, randomPageUrl);
+            request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+
+            HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            return response.RequestMessage!.RequestUri!.ToString();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRandomWikipediaUrl()
+        {
+            var randomUrl = await GetRandomWikipediaArticleUrl();
+            return Json(new { url = randomUrl });
+        }
+
 
         private IEnumerable<string> FilterCommonWords(IEnumerable<string> words)
         {

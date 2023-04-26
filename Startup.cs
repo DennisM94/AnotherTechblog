@@ -1,5 +1,6 @@
 ﻿using AnotherTechblog.Data;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 public class Startup
 {
@@ -14,9 +15,11 @@ public class Startup
     {
 
         services.AddControllersWithViews();
+        var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<AnotherTechblogDbContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("YourConnectionString")));
+            options.UseNpgsql(connectionString));
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

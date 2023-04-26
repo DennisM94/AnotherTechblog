@@ -1,4 +1,5 @@
 ﻿@model AnotherTechblog.Models.WordCountViewModel
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <h1> Wikipedia Wordcounter</h1>
 
@@ -59,4 +60,14 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Count Words</button>
+    <button type="button" class="btn btn-secondary" onclick="setRandomUrl()">Random Wikipedia URL</button>
+
+    <script>
+        async function setRandomUrl() {
+            const response = await $.getJSON('/WordCount/GetRandomWikipediaUrl');
+            const randomUrl = response.url;
+            const urlInput = document.getElementById('ArticleUrl');
+            urlInput.value = randomUrl;
+        }
+    </script>
 }
