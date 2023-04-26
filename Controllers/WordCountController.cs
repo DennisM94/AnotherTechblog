@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using AnotherTechblog.Models;
@@ -17,6 +18,17 @@ namespace AnotherTechblog.Controllers
             var model = new WordCountViewModel();
             ViewBag.Title = "Wordcounter for Wikipedia Articles";
             return View(model);
+        }
+
+        public string StripPunctuation(string s)
+        {
+            var sb = new StringBuilder();
+            foreach (char c in s)
+            {
+                if (!char.IsPunctuation(c))
+                    sb.Append(c);
+            }
+            return sb.ToString();
         }
 
         [HttpPost]
@@ -43,7 +55,7 @@ namespace AnotherTechblog.Controllers
                 }
             }
 
-            var articleText = HttpUtility.HtmlDecode(articleNode.InnerText.Trim());
+            var articleText = StripPunctuation(HttpUtility.HtmlDecode(articleNode.InnerText.Trim()));
 
             // Split article text into words
             var words = articleText.Split(' ');
@@ -71,7 +83,7 @@ namespace AnotherTechblog.Controllers
         private IEnumerable<string> FilterCommonWords(IEnumerable<string> words)
         {
             var commonWordsGerman = new HashSet<string> { "der", "die", "das", "und", "am", "bei", "in", "ist", "zu", "mit", "auf", "für", "ein", "eine", "einer", "nicht", "auch", "sich", "aus", "dem", "den", "im", "als", "wie", "oder", "aber", "dass", "nach", "wenn", "dann", "noch", "über", "vor", "zum", "einen", "zur", "bis", "an", "durch", "um", "von", "haben", "sein", "werden", "kann", "muss", "wird", "sind", "war", "es", "ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "mein", "dein", "sein", "ihr", "unser", "euer", "ihre", "wurde", "vom", "mal", "des", "s", "l", "-" };
-            var commonWordsEnglish = new HashSet<string> { "the", "it", "a", "and", "to", "in", "is", "you", "that", "of", "for", "on", "with", "at", "as", "by", "from", "about", "this", "an", "are", "be", "or", "which", "one", "have", "has", "but", "all", "your", "we", "if", "they", "will", "can", "not", "was", "what", "there", "out", "when", "up", "get", "so", "more", "see", "other", "some", "do", "would", "like", "these", "only", "its", "also", "how", "them", "then", "well", "should", "use", "just", "time", "many", "make", "may", "any", "now", "new", "had", "he", "p", "pp", "were", "such", "where", "first", "who", "most", "way", "need", "know", "much", "could", "want", "find", "than", "been", "come", "every", "two", "too", "their", "through", "even", "into", "because", "over", "before", "go", "work", "between", "must", "our", "after", "think", "best", "each", "never", "under", "right", "going", "own", "around", "still", "look", "might", "provide", "example", "those", "without", "end", "does", "here", "three", "my", "very", "same", "back", "say", "part", "take", "while", "his", "long", "little", "help", "something", "next", "much", "better", "anyone", "always", "though", "off", "us", "given", "last", "let", "great", "being", "less", "several", "away", "thing", "old", "year", "point", "however", "few", "yet", "down", "day", "another", "during", "things", "both", "around", "put", "different", "again", "able", "give", "once", "least", "why", "own", "keep", "done", "called", "number", "ask", "high", "line", "change", "mean", "large", "came", "tell", "group", "become", "important", "every", "include", "became", "run", "life", "order", "course", "fact", "far", "hand", "really", "small", "set", "often", "big", "four", "five", "seem", "felt", "late", "place", "didn't", "someone", "second", "move", "heard", "enough", "took", "person", "got", "nothing" };
+            var commonWordsEnglish = new HashSet<string> { "the", "it", "a", "and", "to", "in", "is", "you", "that", "of", "for", "on", "with", "at", "as", "by", "from", "about", "this", "an", "are", "be", "or", "which", "one", "have", "has", "but", "all", "your", "we", "if", "they", "will", "can", "not", "was", "what", "there", "out", "when", "up", "get", "so", "more", "see", "other", "some", "do", "would", "like", "these", "only", "its", "also", "how", "them", "then", "well", "should", "use", "just", "many", "make", "may", "any", "now", "new", "had", "he", "p", "pp", "were", "such", "where", "first", "who", "most", "way", "need", "know", "much", "could", "want", "find", "than", "been", "come", "every", "two", "too", "their", "p.", "iii", "through", "even", "into", "because", "over", "before", "pp.", "go", "work", "between", "must", "our", "after", "think", "best", "each", "never", "under", "right", "going", "own", "around", "still", "look", "might", "provide", "example", "those", "without", "end", "does", "here", "three", "my", "very", "same", "back", "say", "part", "take", "while", "his", "long", "little", "help", "something", "next", "much", "better", "anyone", "always", "though", "off", "us", "given", "last", "let", "great", "being", "less", "several", "away", "thing", "old", "year", "point", "however", "few", "yet", "down", "day", "another", "during", "things", "both", "around", "put", "different", "again", "able", "give", "once", "least", "why", "own", "keep", "done", "called", "number", "ask", "high", "line", "change", "mean", "large", "came", "tell", "group", "become", "important", "every", "include", "became", "run", "life", "order", "course", "fact", "far", "hand", "really", "small", "set", "often", "big", "four", "five", "seem", "felt", "late", "place", "didn't", "someone", "second", "move", "heard", "enough", "took", "person", "got", "nothing" };
 
             var commonWords = new HashSet<string> { string.Empty };
             commonWords.UnionWith(commonWordsEnglish);
